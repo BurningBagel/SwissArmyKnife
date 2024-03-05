@@ -1,18 +1,22 @@
 <%- include('partials/header.ejs') %>
 
-<div class="container">
-    <header class="d-flex justify-content-center py-3">
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-      </ul>
-    </header>
+<div class="d-flex gap-2 justify-content-center py-3">
+  <button class="btn btn-danger px-3" type="button" onclick=""><a href="/IPLOCATOR">IP LOCATOR</a></button>
+  <button class="btn btn-danger px-3" type="button">EMAIL VERIFICATOR</button>
+  <button class="btn btn-danger px-3" type="button">DICTIONARY</button>
+  <button class="btn btn-danger px-3" type="button">QR CODE MAKER</button>
+  <button class="btn btn-danger px-3" type="button">JSON BIN</button>
+
+  <!-- <button class="btn btn-outline-danger px-3" type="button">Warning</button> -->
 </div>
 
 
 
+
     <h1>Welcome to the Swiss Army Knife!</h1>
+
+    <% if (locals.test) { %>
+     
+    <p><%= test %></p>
+    <% } %>
 <%- include('partials/footer.ejs') %>   

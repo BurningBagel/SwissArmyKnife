@@ -33,6 +33,10 @@ app.get("/", (req,res) => {
     res.render("index.ejs");
 });
 
+app.get("/IPLOCATOR",(req,res) => {
+    res.render("index.ejs",{test:"it worked!"});
+});
+
 app.listen(3000,() => {
     console.log("Ready");
 });
