@@ -12,3 +12,13 @@ img {
     height: 50px;
     width: 50px;
 }
+
+.text{
+    text-align: center;
+    padding: 5rem;
+}
+
+svg{
+    height: 50px;
+    width: 50px;
+}
