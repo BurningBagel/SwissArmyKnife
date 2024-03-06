@@ -1,0 +1,19 @@
+<%- include('partials/header.ejs') %>
+
+<h2>IP LOCATOR</h2>
+
+<form method="POST">
+    <label for="ip">Type your IP here</label>
+    <input type="text" name="ip" id="ip">
+    <input type="submit" value="Submit" formaction="/iplocator">
+</form>
+
+<textarea name="response" id="response" cols="30" rows="10">
+    <% if (locals.response) { %>
+        <%= response %>
+    <% } else { %>
+        Response goes here...
+        <% } %>
+</textarea>
+
+<%- include('partials/footer.ejs') %>  
