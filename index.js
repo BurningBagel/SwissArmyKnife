@@ -30,12 +30,30 @@ app.use(express.static("public"));
 
 
 app.get("/", (req,res) => {
-    res.render("index.ejs");
+    res.render("index.ejs",{active:"none"});
 });
 
-app.get("/IPLOCATOR",(req,res) => {
-    res.render("index.ejs",{test:"it worked!"});
+app.get("/iplocator",(req,res) => {
+    res.render("index.ejs",{active:"iplocator"});
 });
+
+app.get("/email",(req,res) => {
+    res.render("index.ejs",{active:"email"});
+});
+
+app.get("/dictionary",(req,res) => {
+    res.render("index.ejs",{active:"dictionary"});
+});
+
+app.get("/qrcode",(req,res) => {
+    res.render("index.ejs",{active:"qrcode"});
+});
+
+app.get("/jsonbin",(req,res) => {
+    res.render("index.ejs",{active:"jsonbin"});
+});
+
+
 
 app.listen(3000,() => {
     console.log("Ready");

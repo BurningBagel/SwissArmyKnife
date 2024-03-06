@@ -6,3 +6,9 @@ a{
     color: white;
     text-decoration: none;
 }
+
+img {
+    display: inline;
+    height: 50px;
+    width: 50px;
+}
