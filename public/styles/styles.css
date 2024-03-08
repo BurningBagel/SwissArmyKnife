@@ -1,10 +1,11 @@
-h1{
+h1, h2{
     text-align: center;
 }
 
-h2{
-    text-align: center;
-}
+
+/* h2{ */
+    /* text-align: center; */
+/* } */
 
 a{
     color: white;
@@ -25,4 +26,28 @@ img {
 svg{
     height: 50px;
     width: 50px;
+}
+
+.iplocator{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* width: 60%; */
+}
+
+.iplocatorResponse{
+    margin-top: 20px;
+}
+
+#imgInvert{
+    filter:invert(1);
+    transition: filter 0.5s ease;
+}
+
+#imgInvert:hover{
+    /* -webkit-filter:invert(100%) !important; */
+    /* filter: invert(100%) !important; */
+    filter: none;
+    transition: filter 0.5s ease;
 }

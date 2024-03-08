@@ -2,18 +2,19 @@
 
 <h2>IP LOCATOR</h2>
 
+<div class="iplocator">
+
+
 <form method="POST">
-    <label for="ip">Type your IP here</label>
+    <label style="display: block; text-align: center;" for="ip">Type your IP here</label>
+    <p></p>
     <input type="text" name="ip" id="ip">
-    <input type="submit" value="Submit" formaction="/iplocator">
+    <input type="submit" class="btn btn-danger my-0 py-0" style="height: 32px;" value="Submit" formaction="/iplocator">
 </form>
 
-<textarea name="response" id="response" cols="30" rows="10">
-    <% if (locals.response) { %>
-        <%= response %>
-    <% } else { %>
-        Response goes here...
-        <% } %>
+<textarea class="iplocatorResponse" name="response" id="response" cols="30" rows="10"><% if (locals.response) {%><%=response%><%} else {%><%}%>
 </textarea>
+
+</div>
 
 <%- include('partials/footer.ejs') %>  

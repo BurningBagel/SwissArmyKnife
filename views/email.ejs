@@ -1,0 +1,34 @@
+<%- include('partials/header.ejs') %>
+
+
+<h2>Email Verificator</h2>
+
+<form method="POST">
+    <label style="display: block; text-align: center;" for="email">Type your e-mail here!</label>
+    <p></p>
+    <input type="text" name="email" id="email">
+    <input type="submit" class="btn btn-danger my-0 py-0" style="height: 32px;" value="Submit" formaction="/email">
+</form>
+
+<span class="badge text-bg-secondary rounded-pill">Secondary</span>
+
+
+
+<% if (locals.valid) { %>
+    <% if (locals.valid == true) { %>
+        <span class="badge text-bg-success rounded-pill">This email is valid!</span>
+    <% } else { %>
+        <span class="badge text-bg-danger rounded-pill">This email is invalid!</span>
+    <% } %>
+
+
+<% } else if (locals.error) { %>
+ <h2>
+    <span class="badge text-bg-warning rounded-pill"></span><%= error %></span>
+ </h2>
+<% } else { %>
+
+<% }  %>
+
+
+<%- include('partials/footer.ejs') %>  

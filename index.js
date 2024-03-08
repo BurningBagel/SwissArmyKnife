@@ -56,7 +56,7 @@ app.post("/iplocator", async (req,res) => {
         editedResponse = editedResponse.replaceAll("{","");
         editedResponse = editedResponse.replaceAll("}","");
 
-        console.log(JSON.stringify(editedResponse));
+        //console.log("START"+editedResponse); 
 
         res.render("iplocator.ejs",{response:editedResponse});
     } catch (error) {
@@ -67,7 +67,38 @@ app.post("/iplocator", async (req,res) => {
 
 // EMAIL VERIFIER
 app.get("/email",(req,res) => {
-    res.render("index.ejs",{active:"email"});
+    res.render("email.ejs",{active:"email"});
+});
+
+app.post("/email", async (req,res) => {
+
+    const options = {
+        method: 'GET',
+        url: 'https://mailcheck.p.rapidapi.com/',
+        params: {
+          domain: req.body.email // EMAIL GOES HERE
+        },
+        headers: {
+          'X-RapidAPI-Key': 'cfd0af0902msh2a708c8ebcd6a33p1ae34ejsn1dc73742d1fe',
+          'X-RapidAPI-Host': 'mailcheck.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await axios.request(options);
+
+        // var editedResponse = JSON.stringify(response.data);
+        console.log(response.data.valid);
+        
+        res.render("email.ejs",{active:"email",valid:response.data.valid});
+    } catch (error) {
+        res.render("email.ejs",{active:"email",error:error});
+        console.log(error);
+      }
+
+
+
+    
 });
 
 // DICTIONARY
