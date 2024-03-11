@@ -28,7 +28,7 @@ svg{
     width: 50px;
 }
 
-.iplocator{
+.formDisplay{
     display: flex;
     justify-content: center;
     flex-direction: column;

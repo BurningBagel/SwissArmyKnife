@@ -3,14 +3,18 @@
 
 <h2>Email Verificator</h2>
 
-<form method="POST">
-    <label style="display: block; text-align: center;" for="email">Type your e-mail here!</label>
-    <p></p>
-    <input type="text" name="email" id="email">
-    <input type="submit" class="btn btn-danger my-0 py-0" style="height: 32px;" value="Submit" formaction="/email">
-</form>
+<div class="formDisplay">
+    <form method="POST">
+        <label style="display: block; text-align: center;" for="email">Type your e-mail here!</label>
+        <p></p>
+        <input type="text" name="email" id="email">
+        <input type="submit" class="btn btn-danger my-0 py-0" style="height: 32px;" value="Submit" formaction="/email">
+    </form>
 
-<span class="badge text-bg-secondary rounded-pill">Secondary</span>
+
+
+
+<!-- <span class="badge text-bg-secondary rounded-pill">Secondary</span> -->
 
 
 
@@ -30,5 +34,5 @@
 
 <% }  %>
 
-
+</div>
 <%- include('partials/footer.ejs') %>  

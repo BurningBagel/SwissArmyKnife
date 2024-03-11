@@ -76,7 +76,7 @@ app.post("/email", async (req,res) => {
         method: 'GET',
         url: 'https://mailcheck.p.rapidapi.com/',
         params: {
-          domain: req.body.email // EMAIL GOES HERE
+          domain: req.body.email
         },
         headers: {
           'X-RapidAPI-Key': 'cfd0af0902msh2a708c8ebcd6a33p1ae34ejsn1dc73742d1fe',
@@ -88,17 +88,13 @@ app.post("/email", async (req,res) => {
         const response = await axios.request(options);
 
         // var editedResponse = JSON.stringify(response.data);
-        console.log(response.data.valid);
+        //console.log(response.data.valid);
         
         res.render("email.ejs",{active:"email",valid:response.data.valid});
     } catch (error) {
         res.render("email.ejs",{active:"email",error:error});
         console.log(error);
       }
-
-
-
-    
 });
 
 // DICTIONARY
