@@ -1,0 +1,17 @@
+<%- include('partials/header.ejs') %>
+
+<h2>Dictionary</h2>
+
+<div class="formDisplay">
+    <form method="POST">
+        <label for="word">Type in your word here!</label>
+        <p></p>
+        <input type="text" name="word" id="word">
+        <input type="submit" value="Submit" formaction="/dictionary">
+    </form>
+
+
+<textarea class="formResponse" name="answer" id="answer" cols="30" rows="10"><% if (locals.answer) {%><%= answer %><%} %></textarea>
+</div>
+
+<%- include('partials/footer.ejs') %>

@@ -4,7 +4,7 @@
         -Lets aim for a nice round 5 at least
         *IP LOCATION https://ip-api.com/docs
         *EMAIL VERIFICATION https://mailboxlayer.com/
-        *DICTIONARY https://dictionaryapi.com/
+        *DICTIONARY https://dictionaryapi.dev/
         *QR CODE GENERATOR https://www.qrtag.net/api/
         *JSON BIN STORAGE https://extendsclass.com/json-storage.html
         
@@ -24,13 +24,25 @@
 import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 
 
 const app = express();
 
-app.use(express.static("public"));
+const DICTIONARY = "https://api.dictionaryapi.dev/api/v2/entries/en/    "
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname,"public")));
 // BASE
 
 app.get("/", (req,res) => {
@@ -99,7 +111,70 @@ app.post("/email", async (req,res) => {
 
 // DICTIONARY
 app.get("/dictionary",(req,res) => {
-    res.render("index.ejs",{active:"dictionary"});
+    res.render("dictionary.ejs",{active:"dictionary"});
+});
+
+app.post("/dictionary", async (req,res) => {
+    //Dictionary will just give the definitions, lets not worry about examples or synonyms
+    
+    try {
+        // console.log("heres the word: " + req.body.word);
+
+        // console.log(DICTIONARY + req.body.word);
+
+        const response = await axios.get(DICTIONARY + req.body.word);
+
+        //Do we do formatting for the response here in the backend, or tell the frontend to assemble it?
+        //Chat gpt says do it back here, and it makes sense to me so letsa gooooo
+
+        //we need to access the first item of the list we get back, then look for the following dictionary keys
+        //"word", for the word itself
+        //For each in "meanings"
+            // "partOfSpeech" for word type(noun,verb,adjective,etc.)
+            // for each in "definitions"
+                //"definition" is the meaning of the word
+        
+        /*
+        Word
+            noun
+                1. blablabla
+
+                2. blebleble
+
+
+
+
+        */
+        // console.log(response.data);
+
+
+        const word = response.data[0]["word"];
+        console.log("word: ",word);
+        
+        const meanings = response.data[0]["meanings"];
+        console.log(meanings[1]);
+
+        var formattedAnswer = "";
+
+        meanings.forEach(element => {
+            formattedAnswer += "\t" + element["partOfSpeech"] + "\n";
+            for (let index = 0; index < element["definitions"].length; index++) {
+                const element = element["definitions"][index];
+                formattedAnswer += "\t\t" + (index+1) + ". " + element + "\n";
+            }
+            
+        });
+        
+
+        res.render("dictionary.ejs",{active:"dictionary"});
+
+    } catch (error) {
+        res.render("dictionary.ejs",{active:"dictionary",answer:JSON.stringify(error)});
+    }
+    
+
+
+
 });
 
 // QR CODE GENERATOR
