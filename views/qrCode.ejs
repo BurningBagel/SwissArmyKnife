@@ -1,4 +1,14 @@
 <%- include('partials/header.ejs') %>
 
+<h2>QR Code Generator</h2>
+
+<div class="formDisplay">
+    <form method="POST">
+        <label for="word">Type in your URL here!</label>
+        <p></p>
+        <input type="text" name="url" id="url">
+        <input type="submit" value="Submit" formaction="/qrcode">
+    </form>
+</div>
 
 <%- include('partials/footer.ejs') %>
