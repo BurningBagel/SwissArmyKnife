@@ -57,3 +57,8 @@ label{
     text-align: center;
     display: block;
 }
+
+
+footer{
+    bottom:0;
+}
