@@ -16,9 +16,10 @@
 
 
 <% if (locals.answer) { %>
-        <h2><%= word %></h2>
+        <h2 class="dictionaryHeader"><%= word %></h2>
+        <div class="dictionaryDefinitions">
     <% for( let index = 0; index < answer.length; index++ ) { %>
-        <h2><%=answer[index][0]%></h2>
+        <h3><%=answer[index][0]%></h3>
         <ol>
             <% for( let j = 0; j < answer[index][1].length; j++ ) { %>
                 <li><%= answer[index][1][j] %></li>
@@ -26,6 +27,7 @@
         </ol>
 
     <% } %>
+        </div>
 <% } %>
 
 
