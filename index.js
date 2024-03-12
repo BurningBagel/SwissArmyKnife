@@ -148,25 +148,42 @@ app.post("/dictionary", async (req,res) => {
         // console.log(response.data);
 
 
-        const word = response.data[0]["word"];
-        console.log("word: ",word);
+        var word = response.data[0]["word"];
+        word = word[0].toUpperCase() + word.slice(1);
+        //console.log("word: ",word);
         
         const meanings = response.data[0]["meanings"];
-        console.log(meanings[1]);
+        //console.log(meanings[1]);
 
         var formattedAnswer = "";
 
-        meanings.forEach(element => {
-            formattedAnswer += "\t" + element["partOfSpeech"] + "\n";
-            for (let index = 0; index < element["definitions"].length; index++) {
-                const element = element["definitions"][index];
-                formattedAnswer += "\t\t" + (index+1) + ". " + element + "\n";
-            }
+        // meanings.forEach(meaning => {
+        //     formattedAnswer += "\t" + meaning["partOfSpeech"] + "\n";
+        //     for (let index = 0; index < meaning["definitions"].length; index++) {
+        //         const definition = meaning["definitions"][index]["definition"];
+        //         formattedAnswer += "\t\t" + (index+1) + ". " + definition + "\n";
+        //     }
+        //     formattedAnswer += "\n\n";
             
+        // });
+
+        var arrayToSend = [];
+
+        meanings.forEach(meaning => {
+            var anchor = meaning["partOfSpeech"];
+            var definitions = [];
+
+            for (let j = 0; j < meaning["definitions"].length; j++){
+                definitions.push(meaning["definitions"][j]["definition"]);
+            }
+
+            var entry = [anchor,definitions];
+            arrayToSend.push(entry);
         });
         
+        //FORMAT ANSWER[[PARTOFSPEECH,[DEFINITIONS]]]
 
-        res.render("dictionary.ejs",{active:"dictionary"});
+        res.render("dictionary.ejs",{active:"dictionary",answer:arrayToSend,word:word});
 
     } catch (error) {
         res.render("dictionary.ejs",{active:"dictionary",answer:JSON.stringify(error)});
