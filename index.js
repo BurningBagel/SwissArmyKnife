@@ -33,6 +33,7 @@ import { dirname } from 'path';
 const app = express();
 
 const DICTIONARY = "https://api.dictionaryapi.dev/api/v2/entries/en/    "
+const QRCODE = "";
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -196,8 +197,13 @@ app.post("/dictionary", async (req,res) => {
 
 // QR CODE GENERATOR
 app.get("/qrcode",(req,res) => {
-    res.render("index.ejs",{active:"qrcode"});
+    res.render("qrCode.ejs",{active:"qrcode"});
 });
+
+app.post("/qrcode",(req,res) => {
+    res.render("qrCode.ejs",{active:"qrcode",qrcode:"https://qrtag.net/api/qr.png?url="+req.body.url});
+});
+
 
 // JSON BIN
 app.get("/jsonbin",(req,res) => {

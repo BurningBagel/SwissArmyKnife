@@ -7,8 +7,19 @@
         <label for="word">Type in your URL here!</label>
         <p></p>
         <input type="text" name="url" id="url">
-        <input type="submit" value="Submit" formaction="/qrcode">
+        <input type="submit" value="Submit" class="btn btn-danger my-0 py-0" style="height: 32px;" formaction="/qrcode">
     </form>
 </div>
+
+
+<% if (locals.qrcode) { %>
+ <img src="<%=qrcode%>" id="qrcodeImg" alt="qrcode" onload="loadedImg(this)">
+<% } %>
+
+<script>
+    function loadedImg(item) {
+        item.style.display = "block";
+        }
+</script>
 
 <%- include('partials/footer.ejs') %>

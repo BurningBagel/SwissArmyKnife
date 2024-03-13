@@ -57,3 +57,11 @@ label{
     text-align: center;
     display: block;
 }
+
+#qrcodeImg{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100px;
+    width: 100px;
+}
