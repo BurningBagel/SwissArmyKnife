@@ -6,7 +6,7 @@
         *EMAIL VERIFICATION https://mailboxlayer.com/
         *DICTIONARY https://dictionaryapi.dev/
         *QR CODE GENERATOR https://www.qrtag.net/api/
-        *JSON BIN STORAGE https://extendsclass.com/json-storage.html
+        *CURRENCY CONVERTER https://www.frankfurter.app/docs/
         
         
 
@@ -33,7 +33,7 @@ import { dirname } from 'path';
 const app = express();
 
 const DICTIONARY = "https://api.dictionaryapi.dev/api/v2/entries/en/    "
-const QRCODE = "";
+const CURRENCY = "https://api.frankfurter.app/latest";
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -205,12 +205,30 @@ app.post("/qrcode",(req,res) => {
 });
 
 
-// JSON BIN
-app.get("/jsonbin",(req,res) => {
-    res.render("index.ejs",{active:"jsonbin"});
+// CURRENCY
+app.get("/currency",(req,res) => {
+    res.render("currency.ejs",{active:"currency"});
 });
 
+app.post("/currency", async (req,res) => {
+    try {
 
+        // const response = await axios.get(CURRENCY);
+
+        const response = await axios.get(CURRENCY,{ params: {
+            amount: req.body.amount,
+            from: req.body.curr1,
+            to: req.body.curr2
+        },});
+        
+        const result = response.data["rates"][req.body.curr2];
+
+        res.render("currency.ejs",{active:"currency",response:result});    
+    } catch (error) {
+        res.render("currency.ejs",{active:"currency",response:error});
+    }
+    
+});
 
 app.listen(3000,() => {
     console.log("Ready");
