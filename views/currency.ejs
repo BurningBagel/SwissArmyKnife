@@ -12,20 +12,22 @@
 
 
     <form method="POST">
-        <label style="display: block;" for="curr1">FROM</label>
-        <label  style="display: block;" for="curr2">TO</label>
-        <p></p>
+        <label style="display: inline;" for="curr1">FROM</label>
+        
+        
         <!-- <input list="currencies" name="curr1" id="curr1">
         <input list="currencies" name="curr2" id="curr2"> -->
 
-        <select style="width: auto;" name="curr1" id="curr1">
-            <%- include('partials/currencies.ejs') %>
-        </select>
-        <select name="curr2" id="curr2">
+        <select style="width: auto;" name="curr1" id="curr1" required>
             <%- include('partials/currencies.ejs') %>
         </select>
 
-        <input type="number" name="amount" id="amount">
+        <label  style="display: inline;" for="curr2">TO</label>
+        <select name="curr2" id="curr2" required>
+            <%- include('partials/currencies.ejs') %>
+        </select>
+
+        <input type="number" name="amount" id="amount" required>
         
         <input type="submit" class="btn btn-danger my-0 py-0" style="height: 32px;" value="Submit" formaction="/currency">
     </form>
