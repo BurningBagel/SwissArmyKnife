@@ -215,15 +215,22 @@ app.post("/currency", async (req,res) => {
 
         // const response = await axios.get(CURRENCY);
 
-        const response = await axios.get(CURRENCY,{ params: {
-            amount: req.body.amount,
-            from: req.body.curr1,
-            to: req.body.curr2
-        },});
-        
-        const result = response.data["rates"][req.body.curr2];
+        if (req.body.curr1 == req.body.curr2){
+            res.render("currency.ejs",{active:"currency",response:`${req.body.amount} ${req.body.curr1} = ${req.body.amount} ${req.body.curr2}`});
+        }
+        else{
+            const response = await axios.get(CURRENCY,{ params: {
+                amount: req.body.amount,
+                from: req.body.curr1,
+                to: req.body.curr2
+            },});
+            
+            var result = response.data["rates"][req.body.curr2];
 
-        res.render("currency.ejs",{active:"currency",response:result});    
+            result =  `${req.body.amount} ${req.body.curr1} = ${result} ${req.body.curr2}`; 
+
+            res.render("currency.ejs",{active:"currency",response:result});    
+        }
     } catch (error) {
         res.render("currency.ejs",{active:"currency",response:error});
     }
