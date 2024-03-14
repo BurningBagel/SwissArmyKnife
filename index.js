@@ -32,6 +32,8 @@ import { dirname } from 'path';
 
 const app = express();
 
+const PORT = 3000;
+
 const DICTIONARY = "https://api.dictionaryapi.dev/api/v2/entries/en/    "
 const CURRENCY = "https://api.frankfurter.app/latest";
 
@@ -237,6 +239,6 @@ app.post("/currency", async (req,res) => {
     
 });
 
-app.listen(3000,() => {
+app.listen(PORT,() => {
     console.log("Ready");
 });
