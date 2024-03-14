@@ -1,26 +1,3 @@
-/*
-    TODO
-    -Find useful APIs!
-        -Lets aim for a nice round 5 at least
-        *IP LOCATION https://ip-api.com/docs
-        *EMAIL VERIFICATION https://mailboxlayer.com/
-        *DICTIONARY https://dictionaryapi.dev/
-        *QR CODE GENERATOR https://www.qrtag.net/api/
-        *CURRENCY CONVERTER https://www.frankfurter.app/docs/
-        
-        
-
-    -Main webpage layout
-        -Header buttons
-        -Footer info
-        -Main page text layout listing what each button does
-
-    -API page layout
-        -Header buttons, but how to dynamically change which one is highlighted?
-        -Footer as usual
-        -Body will depend on each API
-
-*/
 import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
@@ -59,19 +36,14 @@ app.get("/iplocator",(req,res) => {
 });
 
 app.post("/iplocator", async (req,res) => {
-    // console.log(req.body);
 
     try {
         const response = await axios.get("http://ip-api.com/json/"+req.body.ip);
-
-        // console.log(response);
         
         var editedResponse = JSON.stringify(response.data).replaceAll(",","\n");
         editedResponse = editedResponse.replaceAll("\t","");
         editedResponse = editedResponse.replaceAll("{","");
         editedResponse = editedResponse.replaceAll("}","");
-
-        //console.log("START"+editedResponse); 
 
         res.render("iplocator.ejs",{response:editedResponse});
     } catch (error) {
@@ -101,9 +73,6 @@ app.post("/email", async (req,res) => {
 
       try {
         const response = await axios.request(options);
-
-        // var editedResponse = JSON.stringify(response.data);
-        //console.log(response.data.valid);
         
         res.render("email.ejs",{active:"email",valid:response.data.valid});
     } catch (error) {
@@ -118,57 +87,15 @@ app.get("/dictionary",(req,res) => {
 });
 
 app.post("/dictionary", async (req,res) => {
-    //Dictionary will just give the definitions, lets not worry about examples or synonyms
     
     try {
-        // console.log("heres the word: " + req.body.word);
-
-        // console.log(DICTIONARY + req.body.word);
 
         const response = await axios.get(DICTIONARY + req.body.word);
 
-        //Do we do formatting for the response here in the backend, or tell the frontend to assemble it?
-        //Chat gpt says do it back here, and it makes sense to me so letsa gooooo
-
-        //we need to access the first item of the list we get back, then look for the following dictionary keys
-        //"word", for the word itself
-        //For each in "meanings"
-            // "partOfSpeech" for word type(noun,verb,adjective,etc.)
-            // for each in "definitions"
-                //"definition" is the meaning of the word
-        
-        /*
-        Word
-            noun
-                1. blablabla
-
-                2. blebleble
-
-
-
-
-        */
-        // console.log(response.data);
-
-
         var word = response.data[0]["word"];
         word = word[0].toUpperCase() + word.slice(1);
-        //console.log("word: ",word);
         
         const meanings = response.data[0]["meanings"];
-        //console.log(meanings[1]);
-
-        var formattedAnswer = "";
-
-        // meanings.forEach(meaning => {
-        //     formattedAnswer += "\t" + meaning["partOfSpeech"] + "\n";
-        //     for (let index = 0; index < meaning["definitions"].length; index++) {
-        //         const definition = meaning["definitions"][index]["definition"];
-        //         formattedAnswer += "\t\t" + (index+1) + ". " + definition + "\n";
-        //     }
-        //     formattedAnswer += "\n\n";
-            
-        // });
 
         var arrayToSend = [];
 
@@ -184,17 +111,12 @@ app.post("/dictionary", async (req,res) => {
             arrayToSend.push(entry);
         });
         
-        //FORMAT ANSWER[[PARTOFSPEECH,[DEFINITIONS]]]
-
         res.render("dictionary.ejs",{active:"dictionary",answer:arrayToSend,word:word});
 
     } catch (error) {
         res.render("dictionary.ejs",{active:"dictionary",answer:JSON.stringify(error)});
     }
     
-
-
-
 });
 
 // QR CODE GENERATOR
@@ -214,8 +136,6 @@ app.get("/currency",(req,res) => {
 
 app.post("/currency", async (req,res) => {
     try {
-
-        // const response = await axios.get(CURRENCY);
 
         if (req.body.curr1 == req.body.curr2){
             res.render("currency.ejs",{active:"currency",response:`${req.body.amount} ${req.body.curr1} = ${req.body.amount} ${req.body.curr2}`});
